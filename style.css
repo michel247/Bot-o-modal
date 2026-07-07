@@ -1,0 +1,483 @@
+<style>
+        /* --- CONFIGURAÇÕES GERAIS DE ACESSIBILIDADE --- */
+        :root {
+            --cor-primaria: #0f4c81; /* Azul seguro e confiável */
+            --cor-primaria-hover: #0a355c;
+            --cor-secundaria: #2d8a4e; /* Verde para ações positivas */
+            --cor-alerta: #d9383a; /* Vermelho para emergência/alerta */
+            --cor-fundo: #f4f7f9;
+            --cor-card: #ffffff;
+            --cor-texto: #2d3748;
+            --cor-texto-suave: #4a5568;
+            --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--fonte-principal);
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+            padding-bottom: 100px; /* Espaço para o botão de emergência fixo */
+        }
+
+        /* --- CONTROLE DE TAMANHO DE FONTE (PURA CSS) --- */
+        #tamanho-fonte-mestre {
+            display: none;
+        }
+        
+        /* Quando o checkbox de aumentar fonte estiver marcado, aumenta o tamanho de tudo */
+        #tamanho-fonte-mestre:checked ~ main {
+            font-size: 1.25rem;
+        }
+        #tamanho-fonte-mestre:checked ~ main h2 {
+            font-size: 2.2rem;
+        }
+        #tamanho-fonte-mestre:checked ~ main h3 {
+            font-size: 1.7rem;
+        }
+        #tamanho-fonte-mestre:checked ~ main p {
+            font-size: 1.3rem;
+        }
+
+        /* --- CABEÇALHO --- */
+        header {
+            background-color: var(--cor-primaria);
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* --- BARRA DE ACESSIBILIDADE --- */
+        .barra-acessibilidade {
+            background-color: #e2e8f0;
+            padding: 12px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #cbd5e1;
+        }
+
+        .btn-acessibilidade {
+            background-color: white;
+            border: 2px solid var(--cor-primaria);
+            color: var(--cor-primaria);
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-acessibilidade:hover {
+            background-color: var(--cor-primaria);
+            color: white;
+        }
+
+        /* Mudança de texto no botão de fonte quando ativo */
+        #tamanho-fonte-mestre:checked ~ .barra-acessibilidade .btn-acessibilidade .texto-botao::after {
+            content: " (Ativo - Clique para diminuir)";
+        }
+        #tamanho-fonte-mestre:not(:checked) ~ .barra-acessibilidade .btn-acessibilidade .texto-botao::after {
+            content: " (Clique para aumentar)";
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        main {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 0 16px;
+            transition: font-size 0.2s ease;
+        }
+
+        /* Boas-vindas */
+        .introducao {
+            background-color: #ebf8ff;
+            border-left: 8px solid var(--cor-primaria);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .introducao h2 {
+            color: var(--cor-primaria);
+            margin-bottom: 12px;
+            font-size: 1.8rem;
+        }
+
+        .introducao p {
+            font-size: 1.15rem;
+            color: var(--cor-texto-suave);
+        }
+
+        /* Secao de Dicas */
+        .secao-titulo {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--cor-primaria);
+            border-bottom: 3px solid #cbd5e1;
+            padding-bottom: 8px;
+        }
+
+        .grid-dicas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        /* Cards de Dicas */
+        .card-dica {
+            background: var(--cor-card);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card-cabecalho {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-icone {
+            background-color: #ebf8ff;
+            color: var(--cor-primaria);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .card-icone svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        .card-dica h3 {
+            font-size: 1.45rem;
+            color: var(--cor-primaria);
+        }
+
+        .card-conteudo p {
+            font-size: 1.15rem;
+            color: var(--cor-texto-suave);
+            margin-bottom: 12px;
+        }
+
+        /* Caixa de Atenção/Perigo nas Dicas */
+        .alerta-pequeno {
+            background-color: #fff5f5;
+            border: 2px solid #fed7d7;
+            border-left: 6px solid var(--cor-alerta);
+            padding: 14px;
+            border-radius: 8px;
+            color: #c53030;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Lista Prática Interativa (Pure CSS) */
+        .checklist-seguranca {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        .checklist-seguranca h3 {
+            color: var(--cor-primaria);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .item-checklist {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf2f7;
+            cursor: pointer;
+        }
+
+        .item-checklist:last-child {
+            border-bottom: none;
+        }
+
+        .item-checklist input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            accent-color: var(--cor-secundaria);
+            cursor: pointer;
+            margin-top: 3px;
+        }
+
+        .item-checklist span {
+            font-size: 1.15rem;
+            user-select: none;
+        }
+
+        /* Riscado quando marcado para dar feedback visual */
+        .item-checklist input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: #a0aec0;
+        }
+
+
+        /* --- BOTÃO DE EMERGÊNCIA FIXO --- */
+        .container-emergencia-fixo {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 16px;
+            box-shadow: 0 -6px 20px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: center;
+            z-index: 99;
+        }
+
+        .btn-emergencia-gatilho {
+            background-color: var(--cor-alerta);
+            color: white;
+            padding: 16px 36px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(217, 56, 58, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            user-select: none;
+            animation: pulsar 2s infinite;
+            text-decoration: none;
+        }
+
+        .btn-emergencia-gatilho:hover {
+            background-color: #b82a2c;
+        }
+
+        @keyframes pulsar {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 6px 12px rgba(217, 56, 58, 0.4);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 6px 20px rgba(217, 56, 58, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 6px 12px rgba(217, 56, 58, 0.4);
+            }
+        }
+
+
+        /* --- MODAL DE EMERGÊNCIA (PURA CSS) --- */
+        #controle-modal {
+            display: none;
+        }
+
+        /* Estrutura do fundo escuro do modal */
+        .modal-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        /* Exibe o modal quando o input de controle for marcado */
+        #controle-modal:checked ~ .modal-background {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Caixa interna do modal */
+        .modal-conteudo {
+            background-color: white;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            border: 4px solid var(--cor-alerta);
+        }
+
+        #controle-modal:checked ~ .modal-background .modal-conteudo {
+            transform: scale(1);
+        }
+
+        .modal-cabecalho {
+            color: var(--cor-alerta);
+            margin-bottom: 16px;
+        }
+
+        .modal-cabecalho svg {
+            width: 60px;
+            height: 60px;
+            fill: currentColor;
+            margin-bottom: 10px;
+        }
+
+        .modal-conteudo h2 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: #1a202c;
+        }
+
+        .modal-conteudo p {
+            font-size: 1.2rem;
+            color: var(--cor-texto-suave);
+            margin-bottom: 24px;
+        }
+
+        /* Botões de Ação de Emergência */
+        .opcoes-ligacao {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .btn-ligar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: transform 0.1s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-ligar:active {
+            transform: scale(0.98);
+        }
+
+        .btn-policia {
+            background-color: #0f4c81; /* Azul escuro da polícia */
+        }
+
+        .btn-policia:hover {
+            background-color: #082d4e;
+        }
+
+        .btn-contato-confianca {
+            background-color: var(--cor-secundaria);
+        }
+
+        .btn-contato-confianca:hover {
+            background-color: #1d5f35;
+        }
+
+        /* Botão para Fechar o Modal */
+        .btn-fechar-modal {
+            display: inline-block;
+            background-color: #edf2f7;
+            color: var(--cor-texto);
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 2px solid #cbd5e1;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-fechar-modal:hover {
+            background-color: #cbd5e1;
+        }
+
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .secao-titulo {
+                font-size: 1.5rem;
+            }
+            .card-dica h3 {
+                font-size: 1.3rem;
+            }
+            .btn-emergencia-gatilho {
+                width: 100%;
+                justify-content: center;
+                font-size: 1.25rem;
+                padding: 14px 20px;
+            }
+            .modal-conteudo {
+                padding: 20px;
+            }
+            .btn-ligar {
+                font-size: 1.15rem;
+                padding: 14px;
+            }
+        }
+    </style>
